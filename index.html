@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day Question</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #ffcccb;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #d63447;
+      font-size: 3em;
+    }
+    p {
+      font-size: 1.5em;
+      color: #333;
+    }
+    .button {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #yesButton {
+      background-color: #4CAF50;
+      color: white;
+    }
+    #noButton {
+      background-color: #f44336;
+      color: white;
+    }
+    #response {
+      font-size: 2em;
+      color: #d63447;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Valentine's Day Question 💖</h1>
+  <p>Is Suddhanshu the best boyfriend?</p>
+  <button id="yesButton" class="button">Yes</button>
+  <button id="noButton" class="button">No</button>
+  <div id="response"></div>
+
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const response = document.getElementById('response');
+
+    yesButton.addEventListener('click', () => {
+      response.textContent = "Yay, I knew it! 💖";
+    });
+
+    noButton.addEventListener('click', () => {
+      // Increase the size of the "No" button each time it's clicked
+      const currentSize = parseFloat(window.getComputedStyle(noButton).fontSize);
+      noButton.style.fontSize = `${currentSize + 5}px`;
+
+      // Optional: Move the "No" button slightly to make it harder to click
+      noButton.style.position = 'relative';
+      noButton.style.left = `${Math.random() * 20 - 10}px`;
+      noButton.style.top = `${Math.random() * 20 - 10}px`;
+    });
+  </script>
+</body>
+</html>
