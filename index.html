@@ -1,74 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valentine's Day Question</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #ffcccb;
-      text-align: center;
-      padding: 50px;
-    }
-    h1 {
-      color: #d63447;
-      font-size: 3em;
-    }
-    p {
-      font-size: 1.5em;
-      color: #333;
-    }
-    .button {
-      padding: 15px 30px;
-      font-size: 1.2em;
-      margin: 10px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    #yesButton {
-      background-color: #4CAF50;
-      color: white;
-    }
-    #noButton {
-      background-color: #f44336;
-      color: white;
-    }
-    #response {
-      font-size: 2em;
-      color: #d63447;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Question</title>
+    <style>
+        body {
+            background: #ffe6e6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .hearts-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('hearts.png') repeat;
+            z-index: -1;
+        }
+
+        h1 {
+            color: #ff6666;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #noButton {
+            transition: transform 0.2s;
+        }
+
+        .confetti {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            opacity: 0;
+            animation: fall 1s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>💖 Valentine's Day Question 💖</h1>
-  <p>Is Suddhanshu the best boyfriend?</p>
-  <button id="yesButton" class="button">Of Course!</button>
-  <button id="noButton" class="button">Not Really</button>
-  <div id="response"></div>
+    <div class="hearts-bg"></div>
+    <h1>Is Suddhanshu the Best Boyfriend?</h1>
+    <div class="button-container">
+        <button id="yesButton" onclick="yesClicked()">Yes</button>
+        <button id="noButton" onclick="noClicked()">No</button>
+    </div>
+    <div class="confetti"></div>
 
-  <script>
-    const yesButton = document.getElementById('yesButton');
-    const noButton = document.getElementById('noButton');
-    const response = document.getElementById('response');
+    <script>
+        let noButtonClicks = 0;
+        const noButton = document.getElementById('noButton');
+        const confettiContainer = document.querySelector('.confetti');
 
-    yesButton.addEventListener('click', () => {
-      response.textContent = "Yay, I knew it! 💖";
-    });
+        function yesClicked() {
+            alert('Yay, I knew it!');
+            spreadConfetti();
+        }
 
-    noButton.addEventListener('click', () => {
-      // Increase the size of the "No" button each time it's clicked
-      const currentSize = parseFloat(window.getComputedStyle(noButton).fontSize);
-      noButton.style.fontSize = `${currentSize + 5}px`;
+        function noClicked() {
+            noButtonClicks++;
+            noButton.style.transform = `scale(${1 + noButtonClicks * 0.1})`;
+            noButton.innerText = ['No', 'Please', 'Pretty please', 'Seriously?'][Math.min(noButtonClicks, 3)];
+        }
 
-      // Optional: Move the "No" button slightly to make it harder to click
-      noButton.style.position = 'relative';
-      noButton.style.left = `${Math.random() * 30 - 20}px`;
-      noButton.style.top = `${Math.random() * 30 - 20}px`;
-    });
-  </script>
+        function spreadConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confettiPiece = document.createElement('div');
+                confettiPiece.classList.add('confetti-piece');
+                confettiPiece.style.left = `${Math.random() * 100}%`;
+                confettiPiece.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                confettiContainer.appendChild(confettiPiece);
+
+                setTimeout(() => {
+                    confettiPiece.remove();
+                }, 3000);
+            }
+        }
+    </script>
 </body>
 </html>
